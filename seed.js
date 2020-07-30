@@ -10,11 +10,18 @@ mongoose.connect(process.env.machine || "mongodb://localhost/marketss", {
 });
 
 const csvFilePath='./data/markets.csv'
-csv()
+let mktseed = csv()
 .fromFile(csvFilePath)
 .then((jsonObj)=>{
     console.log(jsonObj[0]);
-   
+    console.log(jsonObj[1])})
+.then((obj) => {
+  let result = obj.filter(o => o.marketid != "") 
+})
+.then((result) => {
+  console.log(result[0])
+  console.log(result[1])
+  console.log(result.length)
 })
 
 var marketSeed = [ 
