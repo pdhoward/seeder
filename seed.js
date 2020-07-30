@@ -1,17 +1,23 @@
 require('dotenv').config()
 const mongoose = require("mongoose");
 const db = require("./models");
+const csv=require('csvtojson')
 
-
-// https://www.npmjs.com/package/csvtojson
-
-mongoose.connect(process.env.rest001 || "mongodb://localhost/restaurants", {
+mongoose.connect(process.env.machine || "mongodb://localhost/marketss", {
   useNewUrlParser: true, 
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
 
-var diningSeed = [ 
+const csvFilePath='./data/markets.csv'
+csv()
+.fromFile(csvFilePath)
+.then((jsonObj)=>{
+    console.log(jsonObj[0]);
+   
+})
+
+var marketSeed = [ 
   {    
     name: "PROXIMITY",
     address: "New York",
@@ -22,13 +28,14 @@ var diningSeed = [
 ];
 
 // seed the database with a fresh set of documents
-db.Dining.deleteMany({})
+db.Markets.deleteMany({})
   .then((res) => {    
     console.log(`${res.deletedCount} records deleted!`)
   })
-  .then(() => db.Dining.collection.insertMany(diningSeed))
+  .then(() => db.Markets.collection.insertMany(marketSeed))
   .then(data => {
-    console.log(`${data.result.n} records inserted!`);    
+    console.log(`${data.result.n} records inserted!`); 
+    process.exit(0)   
   })
   .catch(err => {
     console.error(err);
