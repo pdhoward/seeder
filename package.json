@@ -10,6 +10,7 @@
     "url": "git+https://github.com/pdhoward/seeder.git"
   },
   "dependencies": {
+    "csvtojson": "^2.0.10",
     "dotenv": "^4.0.0",
     "mongoose": "^5.8.6"
   },
