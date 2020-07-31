@@ -6,6 +6,7 @@ let marketSchema = new Schema({
   zipcode: {type: String},
   category: {type: String},
   name: {type: String},
+  location: { type: "Point", coordinates: Array},
   latitude: {type: String},
   longitude: {type: String},
   website: {type: String},  

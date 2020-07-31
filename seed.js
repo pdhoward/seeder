@@ -15,10 +15,18 @@ const convert = async () => {
     console.log(jsonArray[0])
     console.log(jsonArray[1])
     console.log(jsonArray.length)
-    const result = jsonArray.filter(o => o.marketid != "")
-    console.log(result[0])
-    console.log(result[1])
-    console.log(result.length)
+    const filter = jsonArray.filter(o => o.marketid != "")    
+    console.log(`---- data filtered ----`)
+    console.log(filter.length)
+    const result = filter.map(m => {
+      m.location = {}
+      m.location.coordinates = []
+      m.location.coordinates.push(m.longitude)
+      m.location.coordinates.push(m.latitude)
+      return m
+    })
+    console.log(`---- GeoJSON created ----`)
+    console.log(filter.length)
     db.Markets.deleteMany({})
       .then((res) => {    
         console.log(`${res.deletedCount} records deleted!`)
@@ -35,30 +43,4 @@ const convert = async () => {
 }
 
 convert()
-/*
-var marketSeed = [ 
-  {    
-    name: "PROXIMITY",
-    address: "New York",
-    menu: {items: "extraordinary stuff"},
-    acceptsReservations: true,       
-    description: "Simple test for connecting with a writing to MongoDB"     
-  }
-];
 
-// seed the database with a fresh set of documents
-db.Markets.deleteMany({})
-  .then((res) => {    
-    console.log(`${res.deletedCount} records deleted!`)
-  })
-  .then(() => db.Markets.collection.insertMany(marketSeed))
-  .then(data => {
-    console.log(`${data.result.n} records inserted!`); 
-    process.exit(0)   
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
-
-  */
