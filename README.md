@@ -21,4 +21,13 @@ Seeder is a simple utility for loading test data into Mongo Atlas
 
 ### LICENSE
 
+### Other seed data
+https://docs.mongodb.com/v3.6/tutorial/geospatial-tutorial/
+
+https://raw.githubusercontent.com/mongodb/docs-assets/geospatial/neighborhoods.json
+
+https://raw.githubusercontent.com/mongodb/docs-assets/geospatial/restaurants.json
+
+
+
 MIT

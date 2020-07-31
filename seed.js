@@ -31,9 +31,12 @@ const convert = async () => {
       .then((res) => {    
         console.log(`${res.deletedCount} records deleted!`)
       })
-      .then(() => db.Markets.collection.insertMany(result))
+      .then(() => {
+        db.Markets.collection.insertMany(result)        
+      })
       .then(data => {
         console.log(`${data.result.n} records inserted!`); 
+        db.Markets.createIndexes({location: "2dsphere"})
         process.exit(0)   
       })
       .catch(err => {
