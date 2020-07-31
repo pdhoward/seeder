@@ -1,19 +1,19 @@
 {
-    "name": "seeder",
-    "version": "0.8.0",
-    "description": "Seed utility",
-    "main": "seed.js",
-    "license": "MIT",
-    "scripts": {},
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/pdhoward/seeder.git"
-    },
-    "dependencies": {
-      "csvtojson": "^2.0.10",
-      "dotenv": "^4.0.0",
-      "mongoose": "^5.8.6"
-    },
-    "engines": {},
-    "devDependencies": {}
-  }
+  "name": "seeder",
+  "version": "0.8.0",
+  "description": "Seed utility",
+  "main": "seed.js",
+  "license": "MIT",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdhoward/seeder.git"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "dotenv": "^4.0.0",
+    "mongoose": "^5.9.27"
+  },
+  "engines": {},
+  "devDependencies": {}
+}

@@ -21,8 +21,8 @@ const convert = async () => {
     const result = filter.map(m => {
       m.location = {}
       m.location.coordinates = []
-      m.location.coordinates.push(m.longitude)
-      m.location.coordinates.push(m.latitude)
+      m.location.coordinates.push(parseFloat(m.longitude))
+      m.location.coordinates.push(parseFloat(m.latitude))
       return m
     })
     console.log(`---- GeoJSON created ----`)
