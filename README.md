@@ -2,11 +2,12 @@
 
 PROXIMITY is the business solution for location-based conversations. Brands can now reach their audience in context, and with confidence, providing a more powerful and consistent medium to deliver offers and messages
 
-Seeder is a simple utility for loading test data into Mongo Atlas
+Seeder is a simple utility for loading test data from a csv file into Mongo Atlas
 
-### Features
+### NOTES
 
-* Coming soon
+* The app seed.js needs to be modified based on the structure and layout of your csv file.
+* This app creates a GeoJSON index, which requires that all gps data be correctly formed. Errors in the data will terminate the app
 
 ### Usage
 
