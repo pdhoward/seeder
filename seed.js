@@ -11,9 +11,7 @@ mongoose.connect(process.env.machine || "mongodb://localhost/marketss", {
 
 const convert = async () => {
     const csvFilePath='./data/markets.csv'
-    const jsonArray = await csv().fromFile(csvFilePath)
-    console.log(jsonArray[0])
-    console.log(jsonArray[1])
+    const jsonArray = await csv().fromFile(csvFilePath)    
     console.log(jsonArray.length)
     const filter = jsonArray.filter(o => o.marketid != "")    
     console.log(`---- data filtered ----`)
@@ -21,8 +19,12 @@ const convert = async () => {
     const result = filter.map(m => {
       m.location = {}
       m.location.coordinates = []
-      m.location.coordinates.push(parseFloat(m.longitude))
-      m.location.coordinates.push(parseFloat(m.latitude))
+      let lon = parseFloat(m.longitude)
+      let lat = parseFloat(m.latitude)
+      m.location.type = "Point"     
+      m.location.coordinates.push(lon)
+      m.location.coordinates.push(lat)
+      if (typeof lon != "number" || typeof lat != "number") console.log(m)
       return m
     })
     console.log(`---- GeoJSON created ----`)
@@ -31,13 +33,12 @@ const convert = async () => {
       .then((res) => {    
         console.log(`${res.deletedCount} records deleted!`)
       })
-      .then(() => {
-        db.Markets.collection.insertMany(result)        
-      })
-      .then(data => {
+      .then(() => db.Markets.collection.insertMany(result))
+      .then( data => {
         console.log(`${data.result.n} records inserted!`); 
-        db.Markets.createIndexes({location: "2dsphere"})
-        process.exit(0)   
+        // index built in mongoose schema
+        db.Markets.collection.createIndex({location: "2dsphere"})
+        //process.exit(0)           
       })
       .catch(err => {
         console.error(err);

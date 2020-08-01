@@ -6,7 +6,10 @@ let marketSchema = new Schema({
   zipcode: {type: String},
   category: {type: String},
   name: {type: String},
-  location: { type: {type: String, enum: ["Point"]}, coordinates: {type: [Number]}},
+  location: { type: { type: String, 
+                      enum: ["Point"],
+                    required:true }, 
+              coordinates: [Number]},
   latitude: {type: String},
   longitude: {type: String},
   website: {type: String},  
@@ -18,7 +21,7 @@ let marketSchema = new Schema({
   traffic: Object    
 }, { collection: 'markets' });
 
-marketSchema.index({name: "text", description: "text"})
+//marketSchema.index({location: '2dsphere'})
 
 let Markets = mongoose.model("Markets", marketSchema);
 
