@@ -87,20 +87,20 @@ const storeNames = [
 ]
 
 const convert = async () => {
+
+  // create an array of retail store names to use for randowm assignment to test dataste
     const retailFilePath='./data/retailstores.csv'
     const names= await csv().fromFile(retailFilePath)   
     const reduceArray = names.slice(0, 300)
     const selectNames = reduceArray.map(r => r.dba)
     const newNames = [...selectNames, ...storeNames]
-    console.log(`Our names array has ${storeNames.length} entries`)
-    console.log(`Our selectNames array has ${selectNames.length} entries`)
-    console.log(`Our newName array has ${newNames.length} entries`)
+    console.log(`The array of random store names has ${newNames.length} entries`)
+
+  // ingest spreadsheet of retail stores and locations
     const marketsFilePath='./data/markets.csv'
-    const jsonArray = await csv().fromFile(marketsFilePath)    
-    console.log(jsonArray.length)
-    const filter = jsonArray.filter(o => o.marketid != "")    
-    console.log(`---- data filtered ----`)
-    console.log(filter.length)
+    const jsonArray = await csv().fromFile(marketsFilePath)  
+    const filter = jsonArray.filter(o => o.marketid != "")   // delete blanks   
+    console.log(`The array of stores and locations has ${filter.length} entries`)
     const result = filter.map(m => {
       m.location = {}
       m.location.coordinates = []
@@ -123,8 +123,7 @@ const convert = async () => {
       if (typeof lon != "number" || typeof lat != "number") console.log(m)
       return m
     })
-    console.log(`---- GeoJSON created ----`)
-    console.log(filter.length)
+    console.log(`Store array transformed has ${filter.length} entries`)
     db.Markets.deleteMany({})
       .then((res) => {    
         console.log(`${res.deletedCount} records deleted!`)
