@@ -122,10 +122,10 @@ const convert = async () => {
         m.name = assignedName
       }
       if (m.active === undefined) m.active = false;
-      if (m.hasOwnProperty('active')) {
-        m.active = true
-      } else {
+      if (m.active === "") {
         m.active = false
+      } else {
+        m.active = true
       }
       // test for invalid gps points
       if (typeof lon != "number" || typeof lat != "number") console.log(m)
