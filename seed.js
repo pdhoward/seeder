@@ -110,14 +110,22 @@ const convert = async () => {
       m.location.coordinates.push(lon)
       m.location.coordinates.push(lat)
 
-      // test for duplicate names or nulls noted in a string of json docs      
+      // assign random names or replace nulls as noted in a string of json docs 
+      /*     
       if (newNames.includes(m.name)) {        
         let assignedName = newNames[Math.floor(Math.random() * newNames.length)]       
         m.name = assignedName
       }
+      */
       if (m.name == null) {
         let assignedName = newNames[Math.floor(Math.random() * newNames.length)]       
         m.name = assignedName
+      }
+      if (m.active === undefined) m.active = false;
+      if (m.hasOwnProperty('active')) {
+        m.active = true
+      } else {
+        m.active = false
       }
       // test for invalid gps points
       if (typeof lon != "number" || typeof lat != "number") console.log(m)
