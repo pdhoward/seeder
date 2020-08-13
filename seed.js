@@ -1,5 +1,6 @@
 require('dotenv').config()
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require('uuid')
 const db = require("./models");
 const csv=require('csvtojson')
 
@@ -102,6 +103,7 @@ const convert = async () => {
     const filter = jsonArray.filter(o => o.marketid != "")   // delete blanks   
     console.log(`The array of stores and locations has ${filter.length} entries`)
     const result = filter.map(m => {
+      m.marketid = uuidv4()   // assign a random market id
       m.location = {}
       m.location.coordinates = []
       let lon = parseFloat(m.longitude)
@@ -110,13 +112,6 @@ const convert = async () => {
       m.location.coordinates.push(lon)
       m.location.coordinates.push(lat)
 
-      // assign random names or replace nulls as noted in a string of json docs 
-      /*     
-      if (newNames.includes(m.name)) {        
-        let assignedName = newNames[Math.floor(Math.random() * newNames.length)]       
-        m.name = assignedName
-      }
-      */
       if (m.name == null) {
         let assignedName = newNames[Math.floor(Math.random() * newNames.length)]       
         m.name = assignedName
